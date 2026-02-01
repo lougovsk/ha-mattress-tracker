@@ -1,19 +1,31 @@
 flip:
   description: Toggles the mattress side and updates the flip date.
   fields:
-    entity_id:
-      description: Any entity belonging to the mattress you want to flip.
-      example: sensor.main_bed_current_side
+    device_id:
+      name: Device
+      description: The mattress device you want to flip.
+      required: true
+      selector:
+        device:
+          integration: mattress_tracker
     date:
+      name: Date
       description: The date the flip occurred (defaults to today).
-      example: "2023-10-27"
+      selector:
+        date:
 
 rotate:
   description: Toggles the mattress rotation and updates the rotation date.
   fields:
-    entity_id:
-      description: Any entity belonging to the mattress you want to rotate.
-      example: sensor.main_bed_current_rotation
+    device_id:
+      name: Device
+      description: The mattress device you want to rotate.
+      required: true
+      selector:
+        device:
+          integration: mattress_tracker
     date:
+      name: Date
       description: The date the rotation occurred (defaults to today).
-      example: "2023-10-27"
+      selector:
+        date:

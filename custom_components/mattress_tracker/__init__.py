@@ -7,7 +7,7 @@ from datetime import date
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers import device_registry as dr
 import voluptuous as vol
 
 from .const import (
@@ -28,7 +28,7 @@ ATTR_DATE = "date"
 
 SERVICE_SCHEMA = vol.Schema(
     {
-        vol.Required("entity_id"): cv.entity_id,
+        vol.Required("device_id"): cv.string,
         vol.Optional(ATTR_DATE): cv.date,
     }
 )
@@ -37,19 +37,20 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     """Set up the Mattress Tracker component."""
     hass.data.setdefault(DOMAIN, {})
 
-    async def get_entry_id_from_entity(entity_id: str) -> str | None:
-        registry = er.async_get(hass)
-        entity_entry = registry.async_get(entity_id)
-        if entity_entry:
-            return entity_entry.config_entry_id
+    async def get_entry_id_from_device(device_id: str) -> str | None:
+        registry = dr.async_get(hass)
+        device = registry.async_get(device_id)
+        if device:
+            # Return the first config entry associated with this device
+            return list(device.config_entries)[0] if device.config_entries else None
         return None
 
     async def handle_flip(call: ServiceCall):
         """Handle the flip service call."""
-        entity_id = call.data["entity_id"]
-        flip_date = call.data.get(ATTR_DATE, date.today()).isoformat()
+        device_id = call.data["device_id"]
+        flip_date = call.data.get(ATTR_DATE, date.today())
 
-        entry_id = await get_entry_id_from_entity(entity_id)
+        entry_id = await get_entry_id_from_device(device_id)
         if entry_id and entry_id in hass.data[DOMAIN]:
             entities = hass.data[DOMAIN][entry_id].get("entities", {})
             if "side" in entities and "flipped" in entities:
@@ -58,10 +59,10 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
     async def handle_rotate(call: ServiceCall):
         """Handle the rotate service call."""
-        entity_id = call.data["entity_id"]
-        rotate_date = call.data.get(ATTR_DATE, date.today()).isoformat()
+        device_id = call.data["device_id"]
+        rotate_date = call.data.get(ATTR_DATE, date.today())
 
-        entry_id = await get_entry_id_from_entity(entity_id)
+        entry_id = await get_entry_id_from_device(device_id)
         if entry_id and entry_id in hass.data[DOMAIN]:
             entities = hass.data[DOMAIN][entry_id].get("entities", {})
             if "rotation" in entities and "rotated" in entities:

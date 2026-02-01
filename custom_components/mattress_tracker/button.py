@@ -51,7 +51,7 @@ class MattressFlipButton(MattressButtonBase):
         entities = self.hass.data[DOMAIN][self._entry.entry_id]["entities"]
         if "side" in entities and "flipped" in entities:
             entities["side"].toggle_side()
-            entities["flipped"].set_date(date.today().isoformat())
+            entities["flipped"].set_date(date.today())
 
 class MattressRotateButton(MattressButtonBase):
     """Button to rotate the mattress."""
@@ -65,4 +65,4 @@ class MattressRotateButton(MattressButtonBase):
         entities = self.hass.data[DOMAIN][self._entry.entry_id]["entities"]
         if "rotation" in entities and "rotated" in entities:
             entities["rotation"].toggle_rotation()
-            entities["rotated"].set_date(date.today().isoformat())
+            entities["rotated"].set_date(date.today())
