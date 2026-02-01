@@ -1,6 +1,9 @@
 """Sensor platform for Mattress Tracker."""
 from __future__ import annotations
 
+import logging
+from datetime import date
+
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorDeviceClass,
@@ -18,6 +21,8 @@ from .const import (
     ROTATION_TOP_HEAD,
     ROTATION_TOP_FOOT,
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -59,8 +64,18 @@ class MattressSensorBase(RestoreEntity, SensorEntity):
     async def async_added_to_hass(self) -> None:
         """Handle entity which will be added."""
         await super().async_added_to_hass()
-        state = await self.async_get_last_state()
-        if state:
+        if (state := await self.async_get_last_state()) is None:
+            return
+
+        if state.state in ("unknown", "unavailable"):
+            return
+
+        if self.device_class == SensorDeviceClass.DATE:
+            try:
+                self._attr_native_value = date.fromisoformat(state.state)
+            except (ValueError, TypeError):
+                _LOGGER.warning("Could not restore date state for %s: %s", self.entity_id, state.state)
+        else:
             self._attr_native_value = state.state
 
 class MattressSideSensor(MattressSensorBase):
