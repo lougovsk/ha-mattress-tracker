@@ -90,9 +90,9 @@ class MattressLastFlippedSensor(MattressSensorBase):
         self._attr_device_class = SensorDeviceClass.DATE
         self._attr_native_value = None
 
-    def set_date(self, date_str: str):
+    def set_date(self, date_obj):
         """Set the last flipped date."""
-        self._attr_native_value = date_str
+        self._attr_native_value = date_obj
         self.async_write_ha_state()
 
 class MattressRotationSensor(MattressSensorBase):
@@ -120,7 +120,7 @@ class MattressLastRotatedSensor(MattressSensorBase):
         self._attr_device_class = SensorDeviceClass.DATE
         self._attr_native_value = None
 
-    def set_date(self, date_str: str):
+    def set_date(self, date_obj):
         """Set the last rotated date."""
-        self._attr_native_value = date_str
+        self._attr_native_value = date_obj
         self.async_write_ha_state()

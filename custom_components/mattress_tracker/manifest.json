@@ -1,9 +1,9 @@
 {
   "domain": "mattress_tracker",
   "name": "Mattress Tracker",
-  "documentation": "https://github.com/lougovsk/ha-mattress-tracker/blob/main/custom_components/mattress_tracker",
+  "documentation": "https://github.com/lougovsk/ha-mattress-tracker",
   "dependencies": [],
-  "codeowners": [],
+  "codeowners": ["@lougovsk"],
   "config_flow": true,
   "iot_class": "local_push",
   "version": "1.0.0"
