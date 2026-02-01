@@ -1,7 +1,7 @@
 {
   "domain": "mattress_tracker",
   "name": "Mattress Tracker",
-  "documentation": "https://github.com/custom-components/mattress_tracker",
+  "documentation": "https://github.com/lougovsk/ha-mattress-tracker",
   "dependencies": [],
   "codeowners": [],
   "config_flow": true,
