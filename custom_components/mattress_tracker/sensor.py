@@ -81,6 +81,11 @@ class MattressSideSensor(MattressSensorBase):
             self._attr_native_value = self._side_1
         self.async_write_ha_state()
 
+    def set_side(self, side: str):
+        """Set the current side."""
+        self._attr_native_value = side
+        self.async_write_ha_state()
+
 class MattressLastFlippedSensor(MattressSensorBase):
     """Sensor for the last flipped date."""
 
@@ -109,6 +114,11 @@ class MattressRotationSensor(MattressSensorBase):
             self._attr_native_value = ROTATION_TOP_FOOT
         else:
             self._attr_native_value = ROTATION_TOP_HEAD
+        self.async_write_ha_state()
+
+    def set_rotation(self, rotation: str):
+        """Set the current rotation."""
+        self._attr_native_value = rotation
         self.async_write_ha_state()
 
 class MattressLastRotatedSensor(MattressSensorBase):

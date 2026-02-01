@@ -59,6 +59,14 @@ Once configured, the integration provides several entities:
 - `mattress_tracker.rotate`: Toggles the rotation and sets the rotate date.
   - `device_id`: The ID of the Mattress Tracker device.
   - `date` (Optional): The date of the rotation (YYYY-MM-DD). Defaults to today.
+- `mattress_tracker.set_side`: Sets the side and sets the flip date.
+  - `device_id`: The ID of the Mattress Tracker device.
+  - `side`: The side to set (e.g., "Side A").
+  - `date` (Optional): The date of the flip (YYYY-MM-DD). Defaults to today.
+- `mattress_tracker.set_rotation`: Sets the rotation and sets the rotate date.
+  - `device_id`: The ID of the Mattress Tracker device.
+  - `rotation`: The rotation to set ("Top at Head" or "Top at Foot").
+  - `date` (Optional): The date of the rotation (YYYY-MM-DD). Defaults to today.
 
 ## License
 
