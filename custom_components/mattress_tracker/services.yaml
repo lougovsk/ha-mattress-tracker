@@ -1,0 +1,19 @@
+flip:
+  description: Toggles the mattress side and updates the flip date.
+  fields:
+    entity_id:
+      description: Any entity belonging to the mattress you want to flip.
+      example: sensor.main_bed_current_side
+    date:
+      description: The date the flip occurred (defaults to today).
+      example: "2023-10-27"
+
+rotate:
+  description: Toggles the mattress rotation and updates the rotation date.
+  fields:
+    entity_id:
+      description: Any entity belonging to the mattress you want to rotate.
+      example: sensor.main_bed_current_rotation
+    date:
+      description: The date the rotation occurred (defaults to today).
+      example: "2023-10-27"
