@@ -52,6 +52,8 @@ class MattressFlipButton(MattressButtonBase):
         if "side" in entities and "flipped" in entities:
             entities["side"].toggle_side()
             entities["flipped"].set_date(date.today())
+        if "rotated" in entities:
+            entities["rotated"].set_date(date.today())
 
 class MattressRotateButton(MattressButtonBase):
     """Button to rotate the mattress."""

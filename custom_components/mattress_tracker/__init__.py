@@ -78,6 +78,8 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
             if "side" in entities and "flipped" in entities:
                 entities["side"].toggle_side()
                 entities["flipped"].set_date(flip_date)
+            if "rotated" in entities:
+                entities["rotated"].set_date(flip_date)
 
     async def handle_rotate(call: ServiceCall):
         """Handle the rotate service call."""
@@ -111,6 +113,8 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
             if "side" in entities and "flipped" in entities:
                 entities["side"].set_side(side)
                 entities["flipped"].set_date(set_date)
+            if "rotated" in entities:
+                entities["rotated"].set_date(set_date)
 
     async def handle_set_rotation(call: ServiceCall):
         """Handle the set_rotation service call."""
